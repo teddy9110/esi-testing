@@ -1,4 +1,5 @@
 <?php
+global $size;
 
 
 require_once('C:\wamp64\www\topline\vendor\autoload.php');
@@ -54,7 +55,7 @@ if (!isset($_GET['code'])) {
         exit('Oh dear...');
     }
     // Use this to interact with an API on the users behalf
-    printf('Your access token is: %s', $_SESSION['token']->getToken());
+  //  printf('Your access token is: %s', $_SESSION['token']->getToken());
 
 
     $request = $provider->getAuthenticatedRequest(
@@ -65,11 +66,28 @@ if (!isset($_GET['code'])) {
 
 $response = $provider->getResponse($request);
 
-var_dump($response);
+//print_r(array_values($response));
+
+
+}
+
+$key =  array_column($response, 'fuel_expires');
+
+//print_r($key[1]);
+
+$size = count($key);
 
 
 
+foreach ($key as $size) {
+  // code...
+    $i = 0;
 
+  print_r($key[$i]);
+  echo "    ";
+  $i++;
+
+  var_dump($key[$i]);
 }
 
 
