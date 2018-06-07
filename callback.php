@@ -3,6 +3,7 @@ global $size;
 
 
 require_once('C:\wamp64\www\topline\vendor\autoload.php');
+include 'C:\wamp64\www\topline\getfuel.php';
 session_start();
 $provider = new Evelabs\OAuth2\Client\Provider\EveOnline([
     'clientId'          => 'e707ab60f6cc48e09c0219071e9c4288',
@@ -56,39 +57,21 @@ if (!isset($_GET['code'])) {
     }
     // Use this to interact with an API on the users behalf
   //  printf('Your access token is: %s', $_SESSION['token']->getToken());
+  $request = $provider->getAuthenticatedRequest(
+    'GET',
+    'https://esi.evetech.net/v2/corporations/98491666/structures/',
+   $_SESSION['token']->getToken()
+    );
 
 
-    $request = $provider->getAuthenticatedRequest(
-      'GET',
-      'https://esi.evetech.net/v2/corporations/98491666/structures/',
-     $_SESSION['token']->getToken()
-      );
-
-$response = $provider->getResponse($request);
-
-//print_r(array_values($response));
+    $response = $provider->getResponse($request);
 
 
 }
-
-$key =  array_column($response, 'fuel_expires');
-
-//print_r($key[1]);
-
-$size = count($key);
+getfuel($response);
 
 
 
-foreach ($key as $size) {
-  // code...
-    $i = 0;
-
-  print_r($key[$i]);
-  echo "    ";
-  $i++;
-
-  var_dump($key[$i]);
-}
 
 
 /*
