@@ -1,9 +1,12 @@
 <?php
 global $size;
-
+global $response2;
+global $structure;
+global $provider;
 
 require_once('C:\wamp64\www\topline\vendor\autoload.php');
 include 'C:\wamp64\www\topline\getfuel.php';
+include 'C:\wamp64\www\topline\getnames.php';
 session_start();
 $provider = new Evelabs\OAuth2\Client\Provider\EveOnline([
     'clientId'          => 'e707ab60f6cc48e09c0219071e9c4288',
@@ -15,7 +18,7 @@ if (!isset($_GET['code'])) {
     // make sure you have them enabled on your app page at
     // https://developers.eveonline.com/applications/
     $options = [
-        'scope' => ['publicData','esi-corporations.read_structures.v1'] // array or string
+        'scope' => ['publicData','esi-corporations.read_structures.v1','esi-universe.read_structures.v1'] // array or string
     ];
     // If we don't have an authorization code then get one
     $authUrl = $provider->getAuthorizationUrl($options);
@@ -56,7 +59,7 @@ if (!isset($_GET['code'])) {
         exit('Oh dear...');
     }
     // Use this to interact with an API on the users behalf
-  //  printf('Your access token is: %s', $_SESSION['token']->getToken());
+    printf('Your access token is: %s', $_SESSION['token']->getToken());
   $request = $provider->getAuthenticatedRequest(
     'GET',
     'https://esi.evetech.net/v2/corporations/98491666/structures/',
@@ -68,10 +71,44 @@ if (!isset($_GET['code'])) {
 
 
 }
-getfuel($response);
+$fuelID = getfuel($response);
+
+
+$key2 =  array_column($response, 'structure_id');
+
+var_dump($key2);
+$i=0;
+
+foreach($key2 as $size){
+
+        $id = $key2[$i];
+
+  $request = $provider->getAuthenticatedRequest(
+    'GET',
+    'https://esi.evetech.net/v2/universe/structures/'.$id,
+   $_SESSION['token']->getToken()
+    );
+
+echo  nl2br ("\n");
+echo  nl2br ("\n");
+
+    $response2 = $provider->getResponse($request);
 
 
 
+$i++;
+
+
+
+
+print_r($fuelID["date"]);
+print_r("   ");
+print_r($response2["name"]);
+
+}
+
+
+//print_r($storedates);
 
 
 /*

@@ -38,6 +38,10 @@ foreach ($key as $size) {
   echo  nl2br ("\n");
   $i++;
 
+    $timeID= array("date"=>$time);
+
+
 
 }
+return $timeID;
 }
