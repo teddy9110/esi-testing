@@ -1,0 +1,6 @@
+{
+    "require": {
+        "eveseat/eseye": "^1.1",
+        "evelabs/oauth2-eveonline": "^1.1"
+    }
+}
