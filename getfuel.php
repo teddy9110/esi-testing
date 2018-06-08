@@ -34,7 +34,7 @@ foreach ($key as $size) {
   //echo $display;
 
   $unixtime = $display;
-  echo $time = date("d/m/y h:i:s A T",$unixtime);
+   $time = date("d/m/y h:i:s A T",$unixtime);
   echo  nl2br ("\n");
   $i++;
 
