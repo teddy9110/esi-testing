@@ -34,14 +34,10 @@ foreach ($key as $size) {
   //echo $display;
 
   $unixtime = $display;
-   $time = date("d/m/y h:i:s A T",$unixtime);
+  echo $time = date("d/m/y h:i:s A T",$unixtime);
   echo  nl2br ("\n");
   $i++;
 
-    $timeID= array("date"=>$time);
-
-
 
 }
-return $timeID;
 }
